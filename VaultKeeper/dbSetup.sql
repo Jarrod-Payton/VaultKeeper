@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS vaults(
   creatorId VARCHAR(255) NOT NULL,
   name TEXT NOT NULL,
   description TEXT NOT NULL,
-  isPrivate TINYINT NOT NULL,
+  isPrivate BOOLEAN NOT NULL,
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS vaultKeeps(
@@ -35,37 +35,26 @@ CREATE TABLE IF NOT EXISTS vaultKeeps(
   FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 INSERT INTO
-  keeps (
+  vaults (
     creatorId,
     name,
     description,
-    img,
-    views,
-    keeps,
-    shares
+    isCool
   )
 VALUES
   (
-    "61d77f848580c7d11aa6c4e4",
+    "61d8a6a3b364b6807e43838f",
     "Hello",
     "this is a cool album",
-    "hello",
-    0,
-    0,
-    0
+    true
   );
-SELECT
-  *
-FROM
-  keeps
+UPDATE
+  vaults
+SET
+  isCool = false,
+  name = 'Testing',
+  description = 'Testing'
 WHERE
-  creatorId = "61d77f848580c7d11aa6c4e4";
-SELECT
-  a.*,
-  a.id AS accountId,
-  k.*
-FROM
-  keeps k
-  JOIN accounts a ON k.creatorId = a.id
-WHERE
-  k.id = 1;
+  id = 1
+LIMIT
+  1;

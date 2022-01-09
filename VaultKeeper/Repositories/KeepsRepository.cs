@@ -28,21 +28,6 @@ namespace VaultKeeper.Repositories
       SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, newKeep);
     }
-
-    internal void FindKeepById(int newId)
-    {
-      string sql = @"
-      SELECT 
-      a.*,
-      a.id AS accountId,
-      k.*
-      FROM keep k
-      JOIN accounts a ON k.creatorId = a.id
-      WHERE k.id = @id;
-      ";
-
-    }
-
     internal Keep GetKeepById(int KeepId)
     {
       string sql = @"
@@ -74,6 +59,28 @@ namespace VaultKeeper.Repositories
         k.Creator = a;
         return k;
       }).ToList();
+    }
+
+    internal void UpdateKeep(Keep previousVersion)
+    {
+      string sql = @"
+      UPDATE
+      keeps
+      SET
+      name = @name,
+      description = @description,
+      img = @img
+      WHERE id = @id LIMIT 1
+      ;";
+      _db.Execute(sql, previousVersion);
+    }
+
+    internal void DeleteKeep(int keepId)
+    {
+      string sql = @"
+      DELETE FROM keeps WHERE id = @keepId
+      ;";
+      _db.Execute(sql, new { keepId });
     }
   }
 }

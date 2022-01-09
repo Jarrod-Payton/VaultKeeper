@@ -30,11 +30,42 @@ namespace VaultKeeper.Services
     internal List<Keep> GetAllKeeps()
     {
       return _kr.GetAllKeeps();
+
     }
 
     internal Keep GetKeepById(int KeepId)
     {
-      return _kr.GetKeepById(KeepId);
+      Keep found = _kr.GetKeepById(KeepId);
+      if (found == null)
+      {
+        throw new Exception("This doesn't exist no more");
+      }
+      return found;
+    }
+
+    internal Keep UpdateKeep(Keep updatedKeep, Account userInfo, int KeepId)
+    {
+      Keep previousVersion = GetKeepById(KeepId);
+      if (previousVersion == null)
+        if (previousVersion.creatorId != userInfo.Id)
+        {
+          throw new Exception("You don't own this keep");
+        }
+      previousVersion.name = updatedKeep.name ?? previousVersion.name;
+      previousVersion.description = updatedKeep.description ?? previousVersion.description;
+      previousVersion.img = updatedKeep.img ?? previousVersion.img;
+      _kr.UpdateKeep(previousVersion);
+      return previousVersion;
+    }
+
+    internal void DeleteKeep(int keepId, string creatorId)
+    {
+      Keep found = GetKeepById(keepId);
+      if (found.creatorId != creatorId)
+      {
+        throw new Exception("you are not the creator");
+      }
+      _kr.DeleteKeep(keepId);
     }
   }
 }

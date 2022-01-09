@@ -28,7 +28,7 @@ namespace VaultKeeper.Controllers
     {
       try
       {
-        var userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         return Ok(_ks.CreateKeep(newKeep, userInfo));
       }
       catch (Exception e)
@@ -55,6 +55,35 @@ namespace VaultKeeper.Controllers
       try
       {
         return Ok(_ks.GetKeepById(KeepId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpPut("{KeepId}")]
+    [Authorize]
+    public async Task<ActionResult<Keep>> UpdateKeep([FromBody] Keep updatedKeep, int KeepId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_ks.UpdateKeep(updatedKeep, userInfo, KeepId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpDelete("{KeepId}")]
+    [Authorize]
+    public async Task<ActionResult<string>> DeleteKeep(int KeepId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _ks.DeleteKeep(KeepId, userInfo.Id);
+        return Ok("Deleted");
       }
       catch (Exception e)
       {
