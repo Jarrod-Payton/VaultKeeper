@@ -8,11 +8,10 @@ namespace VaultKeeper.Services
   public class ProfilesService
   {
     private readonly ProfilesRepository _pr;
-    private readonly AccountService _as;
-    public ProfilesService(ProfilesRepository pr, AccountService @as)
+
+    public ProfilesService(ProfilesRepository pr)
     {
       _pr = pr;
-      _as = @as;
     }
 
     internal Profile GetProfileById(string profileId)
