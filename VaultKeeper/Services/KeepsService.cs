@@ -39,24 +39,23 @@ namespace VaultKeeper.Services
       {
         throw new Exception("This doesn't exist no more");
       }
+      found.views = found.views + 1;
+      _kr.UpdateKeepStats(found);
       return found;
     }
-
     internal Keep UpdateKeep(Keep updatedKeep, Account userInfo, int KeepId)
     {
       Keep previousVersion = GetKeepById(KeepId);
-      if (previousVersion == null)
-        if (previousVersion.creatorId != userInfo.Id)
-        {
-          throw new Exception("You don't own this keep");
-        }
+      if (previousVersion.creatorId != userInfo.Id)
+      {
+        throw new Exception("You don't own this keep");
+      }
       previousVersion.name = updatedKeep.name ?? previousVersion.name;
       previousVersion.description = updatedKeep.description ?? previousVersion.description;
       previousVersion.img = updatedKeep.img ?? previousVersion.img;
       _kr.UpdateKeep(previousVersion);
       return previousVersion;
     }
-
     internal void DeleteKeep(int keepId, string creatorId)
     {
       Keep found = GetKeepById(keepId);
@@ -65,6 +64,19 @@ namespace VaultKeeper.Services
         throw new Exception("you are not the creator");
       }
       _kr.DeleteKeep(keepId);
+    }
+    internal void IncreaseKeepBy1(int keepId)
+    {
+      Keep previousVersion = GetKeepById(keepId);
+      previousVersion.keeps = previousVersion.keeps + 1;
+      _kr.UpdateKeepStats(previousVersion);
+    }
+
+    internal void DeletedVaultKeep(int keepId)
+    {
+      Keep previousVersion = GetKeepById(keepId);
+      previousVersion.keeps = previousVersion.keeps - 1;
+      _kr.UpdateKeepStats(previousVersion);
     }
   }
 }

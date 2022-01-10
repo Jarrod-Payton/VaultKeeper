@@ -9,10 +9,14 @@ namespace VaultKeeper.Services
   {
     private readonly VaultKeepsRepository _vkr;
     private readonly VaultsService _vs;
-    public VaultKeepsService(VaultKeepsRepository vkr, VaultsService vs)
+    private readonly KeepsService _ks;
+    private readonly ProfilesService _ps;
+    public VaultKeepsService(VaultKeepsRepository vkr, VaultsService vs, KeepsService ks, ProfilesService ps)
     {
       _vkr = vkr;
       _vs = vs;
+      _ks = ks;
+      _ps = ps;
     }
     private VaultKeep GetVaultKeepById(int VaultKeepId)
     {
@@ -25,9 +29,12 @@ namespace VaultKeeper.Services
     }
     internal VaultKeep CreateVaultKeep(VaultKeep newVaultKeep, Account userInfo)
     {
+      Profile foundAccount = _ps.GetProfileById(userInfo.Id);
       newVaultKeep.creatorId = userInfo.Id;
+      _ks.IncreaseKeepBy1(newVaultKeep.keepId);
       int newId = _vkr.CreateNewVaultKeep(newVaultKeep);
       newVaultKeep.id = newId;
+      newVaultKeep.Creator = foundAccount;
       return newVaultKeep;
     }
 
@@ -39,12 +46,14 @@ namespace VaultKeeper.Services
 
     internal void DeleteVaultKeepById(int VaultKeepId, string userId)
     {
+
       VaultKeep found = GetVaultKeepById(VaultKeepId);
       if (found.creatorId != userId)
       {
         throw new Exception("You are not the owner");
       }
       _vkr.DeleteVaultKeepById(VaultKeepId);
+      _ks.DeletedVaultKeep(found.keepId);
     }
   }
 }

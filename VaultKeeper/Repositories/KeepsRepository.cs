@@ -61,6 +61,20 @@ namespace VaultKeeper.Repositories
       }).ToList();
     }
 
+    internal void UpdateKeepStats(Keep previousVersion)
+    {
+      string sql = @"
+      UPDATE
+      keeps
+      SET
+      keeps = @keeps,
+      shares = @shares,
+      views = @views
+      WHERE id = @id LIMIT 1
+      ;";
+      _db.Execute(sql, previousVersion);
+    }
+
     internal void UpdateKeep(Keep previousVersion)
     {
       string sql = @"
