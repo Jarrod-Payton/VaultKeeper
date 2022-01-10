@@ -28,8 +28,22 @@
             isPrivate
             text-center text-light text-shadow
           "
+          v-if="vault.isPrivate"
         >
-          IsPrivate
+          Private
+        </div>
+        <div
+          class="
+            card
+            bg-warning
+            p-2
+            mt-2
+            isPrivate
+            text-center text-light text-shadow
+          "
+          v-else
+        >
+          Public
         </div>
       </div>
     </div>

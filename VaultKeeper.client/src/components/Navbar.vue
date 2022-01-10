@@ -115,9 +115,12 @@
 <script>
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
+import { useRoute, useRouter } from "vue-router"
+import { logger } from "../utils/Logger"
 export default {
   setup() {
+
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),

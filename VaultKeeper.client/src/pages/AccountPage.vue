@@ -25,27 +25,29 @@
             </div>
             <div class="row">
               <div class="col-1"></div>
-              <div class="col-10">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div
-                    class="card elevation-3 bg-secondary p-2 mt-4 selectable"
-                  >
-                    <div class="stats-title text-light text-center">
-                      Keeps Created By {{ account.name }}
-                    </div>
-                    <div class="stats text-light text-center text-shadow">
-                      {{ keeps.length }}
-                    </div>
+              <div class="col-lg-5">
+                <div
+                  class="card elevation-3 bg-secondary p-2 mt-4 selectable"
+                  @click="ScrollToKeeps()"
+                >
+                  <div class="stats-title text-light text-center">
+                    Keeps Created By {{ account.name }}
                   </div>
-                  <div
-                    class="card elevation-3 bg-secondary p-2 mt-4 selectable"
-                  >
-                    <div class="stats-title text-light text-center">
-                      Vaults Created By {{ account.name }}
-                    </div>
-                    <div class="stats text-light text-center text-shadow">
-                      {{ vaults.length }}
-                    </div>
+                  <div class="stats text-light text-center text-shadow">
+                    {{ keeps.length }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div
+                  class="card elevation-3 bg-secondary p-2 mt-4 selectable"
+                  @click="ScrollToVaults()"
+                >
+                  <div class="stats-title text-light text-center">
+                    Vaults Created By {{ account.name }}
+                  </div>
+                  <div class="stats text-light text-center text-shadow">
+                    {{ vaults.length }}
                   </div>
                 </div>
               </div>
@@ -57,11 +59,27 @@
       <div class="col-3"></div>
     </div>
     <div class="row">
-      <div class="col-12">
+      <div class="col-12" id="vaults">
         <div class="card p-3 m-4 mt-5 bg-primary elevation-3">
           <div class="card-title">
-            <div class="card-titles text-shadow text-light">
-              <b class="text-info">Vaults</b> created by {{ account.name }}!
+            <div class="d-flex justify-content-between align-itmes-center">
+              <div class="card-titles text-shadow text-light">
+                <b class="text-info">Vaults</b> created by {{ account.name }}!
+              </div>
+              <div v-if="user.id == account.id">
+                <button
+                  class="btn btn-success elevation-2 text-shadow"
+                  title="Create A Vault"
+                >
+                  +
+                </button>
+                <button
+                  class="btn btn-secondary elevation-2 ms-2 text-shadow"
+                  title="Select from Vaults"
+                >
+                  Select
+                </button>
+              </div>
             </div>
           </div>
           <div class="card-body">
@@ -81,11 +99,19 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12" id="keeps">
         <div class="card p-3 m-4 bg-primary elevation-3">
           <div class="card-title">
-            <div class="card-titles text-shadow text-light">
-              <b class="text-info">Keeps</b> created by {{ account.name }}!
+            <div class="d-flex justify-content-between align-itmes-center">
+              <div class="card-titles text-shadow text-light">
+                <b class="text-info">Keeps</b> created by {{ account.name }}!
+              </div>
+              <button
+                class="btn btn-secondary elevation-2 ms-2 text-shadow"
+                title="Select from Vaults"
+              >
+                Select
+              </button>
             </div>
           </div>
           <div class="card-body">
@@ -116,6 +142,7 @@ import { AppState } from '../AppState'
 import { useRoute } from "vue-router"
 import { profilesService } from "../services/ProfilesService"
 import { resetService } from "../services/ResetService"
+import { logger } from "../utils/Logger"
 export default {
   name: 'Account',
   setup() {
@@ -124,14 +151,24 @@ export default {
       AppState.loading = true
       await resetService.ResetEverything()
       await profilesService.getProfileDetails(route.params.accountId)
+      logger.log('Route', route.name)
       AppState.loading = false
     })
     return {
       route,
+      user: computed(() => AppState.account),
       account: computed(() => AppState.activeUser),
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
-      loading: computed(() => AppState.loading)
+      loading: computed(() => AppState.loading),
+      ScrollToVaults() {
+        const el = document.getElementById("vaults")
+        el.scrollIntoView({ behavior: "smooth" });
+      },
+      ScrollToKeeps() {
+        const el = document.getElementById("keeps")
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }
 }
