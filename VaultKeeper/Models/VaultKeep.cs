@@ -7,6 +7,6 @@ namespace VaultKeeper.Models
     public int vaultId { get; set; }
     public int keepId { get; set; }
     public Keep keep { get; set; }
-    public Account Creator { get; set; }
+    public Profile Creator { get; set; }
   }
 }

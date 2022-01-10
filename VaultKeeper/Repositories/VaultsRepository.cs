@@ -37,9 +37,9 @@ namespace VaultKeeper.Repositories
       JOIN accounts a ON v.creatorId = a.id
       WHERE v.id = @vaultId
       ;";
-      return _db.Query<Vault, Account, Vault>(sql, (v, a) =>
+      return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
       {
-        v.Creator = a;
+        v.Creator = p;
         return v;
       }, new { vaultId }).FirstOrDefault();
     }

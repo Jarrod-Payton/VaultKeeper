@@ -14,6 +14,6 @@ namespace VaultKeeper.Models
     public int views { get; set; }
     public int keeps { get; set; }
     public int shares { get; set; }
-    public Account Creator { get; set; }
+    public Profile Creator { get; set; }
   }
 }
