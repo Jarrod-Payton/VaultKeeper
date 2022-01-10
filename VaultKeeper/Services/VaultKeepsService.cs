@@ -30,6 +30,11 @@ namespace VaultKeeper.Services
     internal VaultKeep CreateVaultKeep(VaultKeep newVaultKeep, Account userInfo)
     {
       Profile foundAccount = _ps.GetProfileById(userInfo.Id);
+      Vault foundVault = _vs.GetVaultByIdRoute(newVaultKeep.vaultId, foundAccount.Id);
+      if (foundVault.creatorId != foundAccount.Id)
+      {
+        throw new Exception("You don't own this vault mate");
+      }
       newVaultKeep.creatorId = userInfo.Id;
       _ks.IncreaseKeepBy1(newVaultKeep.keepId);
       int newId = _vkr.CreateNewVaultKeep(newVaultKeep);
@@ -37,7 +42,6 @@ namespace VaultKeeper.Services
       newVaultKeep.Creator = foundAccount;
       return newVaultKeep;
     }
-
     internal List<KeepFromVaultKeep> GetKeepsByVaultId(int vaultId, string userId)
     {
       Vault found = _vs.GetVaultByIdRoute(vaultId, userId);
