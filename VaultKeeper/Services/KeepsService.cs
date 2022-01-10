@@ -30,7 +30,6 @@ namespace VaultKeeper.Services
     internal List<Keep> GetAllKeeps()
     {
       return _kr.GetAllKeeps();
-
     }
 
     internal Keep GetKeepById(int KeepId)
