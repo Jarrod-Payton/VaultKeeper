@@ -1,5 +1,9 @@
 namespace VaultKeeper.Models
 {
+  public class KeepFromVaultKeep : Keep
+  {
+    public int vaultKeepId { get; set; }
+  }
   public class Keep
   {
     public int id { get; set; }

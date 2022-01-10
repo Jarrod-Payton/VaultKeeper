@@ -47,7 +47,7 @@ namespace VaultKeeper.Repositories
 
     internal List<Keep> GetAllKeeps()
     {
-      var sql = @"
+      string sql = @"
       SELECT 
       k.*,
       a.*

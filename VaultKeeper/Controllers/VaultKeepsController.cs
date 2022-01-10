@@ -31,5 +31,20 @@ namespace VaultKeeper.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpDelete("{VaultKeepId}")]
+    [Authorize]
+    public async Task<ActionResult<String>> DeleteVaultKeepById(int VaultKeepId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _vks.DeleteVaultKeepById(VaultKeepId, userInfo.Id);
+        return Ok("Deleted");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

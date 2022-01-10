@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authorization;
@@ -13,10 +14,14 @@ namespace VaultKeeper.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vs;
-    public VaultsController(VaultsService vs)
+    private readonly VaultKeepsService _vks;
+
+    public VaultsController(VaultsService vs, VaultKeepsService vks)
     {
       _vs = vs;
+      _vks = vks;
     }
+
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault newVault)
@@ -68,6 +73,22 @@ namespace VaultKeeper.Controllers
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         _vs.DeleteVault(VaultId, userInfo.Id);
         return Ok("Deleted");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+
+    // VaultKeep Route
+    [HttpGet("{VaultId}/keeps")]
+    public async Task<ActionResult<List<KeepFromVaultKeep>>> GetKeepsByVaultId(int VaultId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_vks.GetKeepsByVaultId(VaultId, userInfo?.Id));
       }
       catch (Exception e)
       {
