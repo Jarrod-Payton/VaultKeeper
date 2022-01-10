@@ -1,16 +1,58 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+    <span class="navbar-text pe-3">
+      <button
+        class="
+          btn btn-outline-warning
+          text-shadow
+          selectable
+          text-success
+          lighten-30
+          text-uppercase
+          my-2 my-lg-0
+        "
+        @click="login"
+        v-if="!user.isAuthenticated"
+      >
+        Login
+      </button>
+      <div class="dropdown my-2 my-lg-0" v-else>
+        <div
+          class="dropdown-toggle selectable"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          id="authDropdown"
+        >
+          <img
+            :src="user.picture"
+            alt="user photo"
+            height="40"
+            class="rounded elevation-2"
+          />
+        </div>
+        <div
+          class="dropdown-menu p-0 list-group w-100"
+          aria-labelledby="authDropdown"
+        >
+          <router-link
+            :to="{ name: 'Account', params: { accountId: account.id } }"
+          >
+            <div class="list-group-item list-group-item-action hoverable">
+              Manage Account
+            </div>
+          </router-link>
+          <div
+            class="list-group-item list-group-item-action hoverable text-info"
+            @click="logout"
+          >
+            <i class="mdi mdi-logout"></i>
+            Logout
+          </div>
+        </div>
       </div>
-    </router-link>
+    </span>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler dropstart"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -23,55 +65,50 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link
+            :to="{ name: 'Home' }"
+            class="
+              btn
+              text-dark text-shadow
+              lighten-30
+              selectable
+              text-uppercase
+              me-2
+            "
+          >
+            Home
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'About' }"
+            class="
+              btn
+              text-dark text-shadow
+              lighten-30
+              selectable
+              text-uppercase
+              me-2
+            "
+          >
             About
           </router-link>
         </li>
       </ul>
-      <span class="navbar-text">
-        <button
-          class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
-          @click="login"
-          v-if="!user.isAuthenticated"
-        >
-          Login
-        </button>
-
-        <div class="dropdown my-2 my-lg-0" v-else>
-          <div
-            class="dropdown-toggle selectable"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            id="authDropdown"
-          >
-            <img
-              :src="user.picture"
-              alt="user photo"
-              height="40"
-              class="rounded"
-            />
-            <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
-          </div>
-          <div
-            class="dropdown-menu p-0 list-group w-100"
-            aria-labelledby="authDropdown"
-          >
-            <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
-                Manage Account
-              </div>
-            </router-link>
-            <div
-              class="list-group-item list-group-item-action hoverable text-danger"
-              @click="logout"
-            >
-              <i class="mdi mdi-logout"></i>
-              logout
-            </div>
-          </div>
-        </div>
-      </span>
     </div>
+    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+      <div class="d-flex align-items-center">
+        <img
+          alt="logo"
+          src="../assets/img/KnightsIcon.jpg"
+          height="40"
+          class="rounded elevation-2"
+        />
+        <span class="mx-3 text-dark text-shadow lighten-25 text-uppercase"
+          >Vault Keeper</span
+        >
+      </div>
+    </router-link>
   </nav>
 </template>
 
@@ -83,6 +120,7 @@ export default {
   setup() {
     return {
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       async login() {
         AuthService.loginWithPopup()
       },
@@ -110,12 +148,15 @@ export default {
 a:hover {
   text-decoration: none;
 }
-.nav-link{
+.nav-link {
   text-transform: uppercase;
 }
-.navbar-nav .router-link-exact-active{
-  border-bottom: 2px solid var(--bs-success);
+.bottom-border {
+  border-bottom: 2px solid var(--bs-secondary);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.navbar-clear {
+  background-color: none;
 }
 </style>

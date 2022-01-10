@@ -3,12 +3,12 @@
     <Navbar />
   </header>
   <main>
-    <router-view />
+    <div class="row m-0 scrollbar background">
+      <router-view />
+    </div>
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
-    </div>
+    <KeepModal />
   </footer>
 </template>
 
@@ -26,5 +26,4 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
 </style>

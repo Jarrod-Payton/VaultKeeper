@@ -9,6 +9,9 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: $body-bg;
+  background-image: url(https://images.unsplash.com/photo-1541138858526-9f296df15693?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80);
+  background-size: cover;
+  background-repeat: repeat-y;
 }
 
 main {
@@ -31,8 +34,22 @@ select {
     }
   }
 }
-
 form:invalid button[type="submit"] {
   filter: grayscale(1);
   pointer-events: none;
+}
+.scrollbar {
+  overflow-y: scroll;
+  height: 92vh;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--bs-info);
+  padding-right: 100px;
+  border-radius: 7px;
+}
+.text-shadow{
+  text-shadow: 1px 1px var(--bs-dark);
 }
