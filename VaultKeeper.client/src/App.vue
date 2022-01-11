@@ -7,9 +7,8 @@
       <router-view />
     </div>
   </main>
-  <footer>
-    <KeepModal />
-  </footer>
+  <footer></footer>
+  <KeepModal />
 </template>
 
 <script>

@@ -41,7 +41,7 @@ export default {
       KeepModal() {
         try {
           keepsService.setActive(props.keep)
-          Modal.getOrCreateInstance(document.getElementById("keepModal")).toggle();
+          Modal.getOrCreateInstance(document.getElementById("KeepModal")).toggle();
         } catch (error) {
           logger.error(error)
           Pop.toast(error, 'error')
