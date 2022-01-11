@@ -6,35 +6,40 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-6">
-                <img
-                  :src="activeKeep.img"
-                  class="w-100 img object-fit-cover elevation-2"
-                  alt="Image of the Keep"
-                  v-if="activeKeep.img != `{{editKeepImg}}`"
-                />
-                <img
-                  src="../assets/img/KnightsIcon.jpg"
-                  alt="Image broke so here is the logo"
-                  class="w-100 img object-fit-cover elevation-2"
-                  v-else
-                />
-              </div>
-              <div class="col-6">
                 <div class="row">
+                  <div class="col-12">
+                    <img
+                      :src="activeKeep.img"
+                      class="w-100 img object-fit-cover elevation-2"
+                      alt="Image of the Keep"
+                      v-if="activeKeep.img != `{{editKeepImg}}`"
+                    />
+                    <img
+                      src="../assets/img/KnightsIcon.jpg"
+                      alt="Image broke so here is the logo"
+                      class="w-100 img object-fit-cover elevation-2"
+                      v-else
+                    />
+                  </div>
                   <div class="col-12">
                     <div
                       class="
                         creator
                         text-center text-light text-shadow
                         bg-info
-                        p-2
+                        p-1
+                        mt-3
                         action
                       "
                       @click="RouteToCreatorPage()"
                     >
-                      Made By {{ activeKeep.creator?.name }}
+                      Posted By {{ activeKeep.creator?.name }}
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row">
                   <div class="col-12">
                     <div class="title text-center text-light text-shadow">
                       {{ activeKeep.name }}
@@ -61,6 +66,17 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div class="col-12 bottom">
+                    <button class="btn btn-success elevation-2">
+                      Add to Vault
+                    </button>
+                    <button class="btn btn-light ms-2 elevation-2">
+                      Share
+                    </button>
+                    <button class="btn btn-danger ms-2 elevation-2 text-light">
+                      <i class="mdi mdi-trash-can" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -92,6 +108,11 @@ export default {
 }
 </script>
 <style scoped>
+.bottom {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 1.8vh;
+}
 .creator {
   font-size: 1.5vh;
 }
