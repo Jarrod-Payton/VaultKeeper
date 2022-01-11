@@ -1,5 +1,5 @@
 <template>
-  <div class="card elevation-2 bg-dark m-2 action">
+  <div class="card elevation-2 bg-dark m-2 action" @click="VaultPage()">
     <div class="card-title">
       <div class="d-flex justify-content-between align-items-center">
         <div class="vault-owner text-center text-shadow pt-2 ps-3 text-light">
@@ -50,11 +50,18 @@
   </div>
 </template>
 <script>
+import { useRouter } from "vue-router"
+import Pop from "../utils/Pop";
 export default {
   props: { vault: { type: Object, required: true } },
   setup(props) {
+    const router = useRouter();
     return {
-
+      router,
+      VaultPage() {
+        router.push({ name: 'Vault', params: { vaultId: props.vault.id } })
+        Pop.toast(`Welcome to the ${props.vault.name} vault!`)
+      }
     }
   },
 }

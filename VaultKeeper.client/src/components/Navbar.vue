@@ -65,6 +65,22 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
+          <div
+            class="
+              btn
+              text-dark text-shadow
+              elevation-2
+              btn-success
+              lighten-30
+              selectable
+              text-uppercase
+              me-2
+            "
+          >
+            Create a Keep
+          </div>
+        </li>
+        <li>
           <router-link
             :to="{ name: 'Home' }"
             class="

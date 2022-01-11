@@ -15,13 +15,20 @@ import { AppState } from "../AppState"
 import { onMounted } from "@vue/runtime-core"
 import { keepsService } from "../services/KeepsService"
 import { resetService } from "../services/ResetService"
+import { vaultsService } from "../services/VaultsService"
 export default {
   setup() {
     onMounted(async () => {
-      AppState.loading = true
-      await resetService.ResetEverything()
-      await keepsService.GetAllKeeps()
-      AppState.loading = false
+      try {
+        AppState.loading = true
+        await resetService.ResetEverything()
+        await keepsService.GetAllKeeps()
+        await vaultsService.GetMyVaults()
+        AppState.loading = false
+      } catch (error) {
+        Pop.toast(error, 'error')
+        logger.error(error)
+      }
     })
     return {
       keeps: computed(() => AppState.keeps),

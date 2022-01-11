@@ -148,11 +148,16 @@ export default {
   setup() {
     const route = useRoute()
     onMounted(async () => {
-      AppState.loading = true
-      await resetService.ResetEverything()
-      await profilesService.getProfileDetails(route.params.accountId)
-      logger.log('Route', route.name)
-      AppState.loading = false
+      try {
+        AppState.loading = true
+        await resetService.ResetEverything()
+        await profilesService.getProfileDetails(route.params.accountId)
+        await vaultsService.GetMyVaults()
+        AppState.loading = false
+      } catch (error) {
+        Pop.toast(error, 'error')
+        logger.error(error)
+      }
     })
     return {
       route,
