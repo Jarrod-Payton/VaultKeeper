@@ -1,5 +1,19 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+      <div class="d-flex align-items-center">
+        <img
+          alt="logo"
+          src="../assets/img/KnightsIcon.jpg"
+          height="40"
+          class="rounded elevation-2"
+        />
+        <span class="mx-3 text-shadow lighten-25 text-uppercase"
+          >Vault Keeper</span
+        >
+      </div>
+    </router-link>
+    <div class="collapse navbar-collapse" id="navbarText"></div>
     <span class="navbar-text pe-3">
       <button
         class="
@@ -29,6 +43,9 @@
             height="40"
             class="rounded elevation-2"
           />
+          <span class="mx-3 text-success lighten-30 text-shadow">{{
+            user.name
+          }}</span>
         </div>
         <div
           class="dropdown-menu p-0 list-group w-100"
@@ -62,70 +79,6 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <div
-            class="
-              btn
-              text-dark text-shadow
-              elevation-2
-              btn-success
-              lighten-30
-              selectable
-              text-uppercase
-              me-2
-            "
-            @click="CreateKeep()"
-          >
-            Create a Keep
-          </div>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'Home' }"
-            class="
-              btn
-              text-dark text-shadow
-              lighten-30
-              selectable
-              text-uppercase
-              me-2
-            "
-          >
-            Home
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="
-              btn
-              text-dark text-shadow
-              lighten-30
-              selectable
-              text-uppercase
-              me-2
-            "
-          >
-            About
-          </router-link>
-        </li>
-      </ul>
-    </div>
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/KnightsIcon.jpg"
-          height="40"
-          class="rounded elevation-2"
-        />
-        <span class="mx-3 text-dark text-shadow lighten-25 text-uppercase"
-          >Vault Keeper</span
-        >
-      </div>
-    </router-link>
   </nav>
 </template>
 
