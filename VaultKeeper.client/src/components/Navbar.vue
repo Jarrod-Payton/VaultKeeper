@@ -32,7 +32,7 @@
       </button>
       <div class="dropdown my-2 my-lg-0" v-else>
         <div
-          class="dropdown-toggle selectable"
+          class="dropdown-toggle selectable bg-dark p-1 rounded elevation-2"
           data-bs-toggle="dropdown"
           aria-expanded="false"
           id="authDropdown"
@@ -41,7 +41,7 @@
             :src="user.picture"
             alt="user photo"
             height="40"
-            class="rounded elevation-2"
+            class="rounded"
           />
           <span class="mx-3 text-success lighten-30 text-shadow">{{
             user.name

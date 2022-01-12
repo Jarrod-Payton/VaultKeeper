@@ -1,8 +1,8 @@
 <template>
   <div class="modal fade bd-example-modal-xl" id="KeepModal">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog bg-light modal-xl">
       <div class="modal-content">
-        <div class="modal-body bg-primary">
+        <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
               <div class="col-6">
@@ -21,61 +21,58 @@
                       v-else
                     />
                   </div>
-                  <div class="col-12">
-                    <div
-                      class="
-                        creator
-                        text-center text-light text-shadow
-                        bg-info
-                        p-1
-                        mt-3
-                        action
-                      "
-                      @click="RouteToCreatorPage()"
-                    >
-                      Posted By {{ activeKeep.creator?.name }}
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="col-6">
                 <div class="row">
                   <div class="col-12">
-                    <div class="title text-center text-light text-shadow">
-                      {{ activeKeep.name }}
+                    <div class="d-flex justify-content-end">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
-                  </div>
-                  <div class="col-12">
                     <div class="d-flex justify-content-between">
-                      <div class="icons text-light text-shadow">
+                      <div class="icons text-shadow">
                         Views: {{ activeKeep.views }}
                       </div>
-                      <div class="icons text-light text-shadow">
+                      <div class="icons text-shadow">
                         Stored: {{ activeKeep.keeps }}
                       </div>
-                      <div class="icons text-light text-shadow">
+                      <div class="icons text-shadow">
                         Shares: {{ activeKeep.shares }}
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 mt-4">
-                    <div class="card bg-secondary">
-                      <div class="card-body">
-                        <div class="description text-shadow text-light">
-                          {{ activeKeep.description }}
-                        </div>
-                      </div>
+                  <div class="col-12">
+                    <div class="title text-center text-shadow">
+                      {{ activeKeep.name }}
                     </div>
                   </div>
-                  <div class="col-12 bottom">
+                  <div class="col-12 mt-4">
+                    <div class="description text-shadow">
+                      {{ activeKeep.description }}
+                    </div>
+                  </div>
+                  <div class="col-12 flex-grow">
                     <button class="btn btn-success elevation-2">
                       Add to Vault
                     </button>
-                    <button class="btn btn-light ms-2 elevation-2">
-                      Share
-                    </button>
                     <button class="btn btn-danger ms-2 elevation-2 text-light">
                       <i class="mdi mdi-trash-can" />
+                    </button>
+                    <button class="selectable bg-dark p-1 rounded elevation-2">
+                      <img
+                        :src="activekeep.creator?.picture"
+                        alt="user photo"
+                        height="40"
+                        class="rounded"
+                      />
+                      <span class="mx-3 text-success lighten-30 text-shadow">{{
+                        activeKeep.creator?.name
+                      }}</span>
                     </button>
                   </div>
                 </div>
@@ -113,14 +110,13 @@ export default {
   bottom: 0;
   margin-bottom: 1.8vh;
 }
-.creator {
-  font-size: 1.5vh;
-}
 .icons {
   font-size: 3vh;
 }
 .title {
   font-size: 4vh;
+  padding-top: 3vh;
+  border-bottom: 3px solid var(--bs-dark);
 }
 .description {
   font-size: 2vh;

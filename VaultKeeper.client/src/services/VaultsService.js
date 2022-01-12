@@ -41,6 +41,13 @@ class VaultsService {
     AppState.vaults.unshift(res.data)
     AppState.myVaults.unshift(res.data)
   }
+  async deleteVault(vaultId) {
+    logger.log('HELWODO', vaultId)
+    await api.delete(`api/vaults/${vaultId}`)
+  }
+
+
+
   sort(type) {
     let sorted = []
     if (type == 'mostRecent') {

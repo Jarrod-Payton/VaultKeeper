@@ -1,93 +1,35 @@
 <template>
   <div class="VaultPage" v-if="!loading">
-    <div class="row m-0" v-if="keeps.length > 0">
-      <div class="col-md-6">
-        <div class="card bg-primary mt-4 m-3 elevation-2">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12">
-                <h1 class="text-light text-shadow">{{ vault.name }}</h1>
-                <h1 class="text-light text-shadow">{{ vault.description }}</h1>
-                <h1 class="text-light text-shadow">
-                  Keeps: {{ keeps.length }}
-                </h1>
-              </div>
-              <div class="col-12">
-                <div
-                  class="
-                    creator
-                    text-center text-light text-shadow
-                    bg-info
-                    p-1
-                    mt-3
-                    action
-                    elevation-2
-                  "
-                  @click="RouteToCreatorPage()"
-                >
-                  Owned By {{ vault.creator?.name }}
-                </div>
-              </div>
+    <div class="row m-0">
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="info">
+            <div class="title">
+              {{ vault.name }}
             </div>
+            <div class="stats">Keeps: {{ keeps.length }}</div>
+            <div class="privacy" v-if="vault.creatorId == account.id">
+              <div class="stats" v-if="vault.isPrivate">Private</div>
+              <div class="stats" v-else>Public</div>
+            </div>
+          </div>
+          <div class="delete" v-if="vault.creatorId == account.id">
+            <button class="btn btn-outline-dark" @click="deleteVault()">
+              Delete Vault
+            </button>
           </div>
         </div>
       </div>
+    </div>
+    <div class="row" v-if="keeps.length > 0">
       <div class="col-md-4 col-sm-6 col-lg-3" v-for="k in keeps" :key="k.id">
         <Keep :keep="k" />
       </div>
     </div>
-    <div class="row m-0" v-else>
+    <div class="row" v-else>
       <div class="col-12">
-        <div class="card bg-primary elevation-2 mt-2">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12">
-                <h1 class="text-light text-shadow">{{ vault.name }}</h1>
-                <h1 class="text-light text-shadow">{{ vault.description }}</h1>
-                <h1 class="text-light text-shadow">
-                  Keeps: {{ keeps.length }}
-                </h1>
-              </div>
-              <div class="col-12">
-                <div
-                  class="
-                    creator
-                    text-center text-light text-shadow
-                    bg-info
-                    p-1
-                    mt-3
-                    action
-                    elevation-2
-                  "
-                  @click="RouteToCreatorPage()"
-                >
-                  Owned By {{ vault.creator?.name }}
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="card mt-4 bg-danger p-3">
-                  <div class="card-body">
-                    <div class="row action" @click="RouteHome()">
-                      <div class="col-12">
-                        <div
-                          class="No-Keeps text-shadow text-center text-light"
-                        >
-                          You haven't added any keeps to this vault!
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div
-                          class="click-me text-shadow text-light text-center"
-                        >
-                          (Click me to go to the home page)
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="no-keeps">There Are No Keeps in this Vault Yet</div>
         </div>
       </div>
     </div>
@@ -130,8 +72,15 @@ export default {
       },
       RouteHome() {
         router.push({ name: 'Home' })
-
       },
+      async deleteVault() {
+        if (await Pop.confirm('Are you sure you would like to delete this amazing vault?')) {
+          await vaultsService.deleteVault(route.params.vaultId)
+          router.push({ name: 'Account', params: { accountId: AppState.account.id } })
+          Pop.toast('Deleted')
+        }
+      },
+      account: computed(() => AppState.account),
       loading: computed(() => AppState.loading),
       keeps: computed(() => AppState.keeps),
       vault: computed(() => AppState.activeVault)
@@ -140,10 +89,23 @@ export default {
 }
 </script>
 <style scoped>
-.creator {
-  font-size: 1.5vh;
+.title {
+  font-size: 5vh;
 }
-.No-Keeps {
+.stats {
+  font-size: 3.5vh;
+}
+.info {
+  padding-top: 20px;
+  padding-left: 40px;
+}
+.no-keeps {
+  margin-top: 30vh;
+  color: var(--bs-dark);
+  font-weight: bold;
+  transform: rotate(-30deg);
+  background-color: var(--bs-primary);
+  padding: 20px;
   font-size: 5vh;
 }
 .click-me {

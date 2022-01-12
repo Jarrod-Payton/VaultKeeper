@@ -39,16 +39,6 @@
                     v-model="info.description"
                   />
                   <div class="input text-center text-light text-shadow">
-                    Vault Image
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Keep Img..."
-                    class="form-control"
-                    v-model="info.img"
-                  />
-                  <div class="input text-center text-light text-shadow">
                     Private Vault?
                   </div>
                   <div
