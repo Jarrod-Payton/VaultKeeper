@@ -1,6 +1,8 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { keepsService } from "./KeepsService"
+import { vaultsService } from "./VaultsService"
 
 class ProfilesService {
   async getProfileDetails(profileId) {
@@ -10,6 +12,8 @@ class ProfilesService {
     AppState.activeUser = Profile
     AppState.keeps = Keeps
     AppState.vaults = Vaults
+    vaultsService.sort('mostRecent')
+    keepsService.sort('mostRecent')
   }
   async GetProfileById(profileId) {
     const res = await api.get(`api/profiles/${profileId}`)

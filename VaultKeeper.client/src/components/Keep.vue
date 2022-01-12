@@ -2,15 +2,9 @@
   <div class="card mt-2 elevation-2 bg-dark action" @click="KeepModal">
     <img
       :src="keep.img"
-      alt="Cover Image"
+      alt="Keep Photo"
+      onerror="this.onerror=null; this.src='../assets/img/KnightsIcon.jpg'"
       class="pt-3 px-3 rounded"
-      v-if="keep.img != `{{editKeepImg}}`"
-    />
-    <img
-      src="../assets/img/KnightsIcon.jpg"
-      class="px-3 pt-3 rounded"
-      alt="Default"
-      v-else
     />
     <div class="card-body">
       <div class="row">

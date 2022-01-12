@@ -76,6 +76,7 @@
               text-uppercase
               me-2
             "
+            @click="CreateKeep()"
           >
             Create a Keep
           </div>
@@ -134,12 +135,16 @@ import { AppState } from '../AppState'
 import { computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import { logger } from "../utils/Logger"
+import { Modal } from "bootstrap"
 export default {
   setup() {
 
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
+      CreateKeep() {
+        Modal.getOrCreateInstance(document.getElementById("CreateKeep")).toggle();
+      },
       async login() {
         AuthService.loginWithPopup()
       },

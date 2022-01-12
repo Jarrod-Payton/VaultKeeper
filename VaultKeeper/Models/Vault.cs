@@ -1,3 +1,5 @@
+using System;
+
 namespace VaultKeeper.Models
 {
   public class Vault
@@ -8,5 +10,7 @@ namespace VaultKeeper.Models
     public string description { get; set; }
     public bool? isPrivate { get; set; }
     public Profile Creator { get; set; }
+    public DateTime createdAt { get; set; }
+    public DateTime updatedAt { get; set; }
   }
 }

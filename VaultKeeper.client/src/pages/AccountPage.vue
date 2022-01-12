@@ -66,19 +66,66 @@
               <div class="card-titles text-shadow text-light">
                 <b class="text-info">Vaults</b> created by {{ account.name }}!
               </div>
-              <div v-if="user.id == account.id">
+              <div>
                 <button
                   class="btn btn-success elevation-2 text-shadow"
                   title="Create A Vault"
+                  @click="CreateVault()"
+                  v-if="user.id == account.id"
                 >
                   +
                 </button>
                 <button
                   class="btn btn-secondary elevation-2 ms-2 text-shadow"
                   title="Select from Vaults"
+                  v-if="user.id == account.id"
                 >
                   Select
                 </button>
+                <button
+                  class="
+                    btn btn-info
+                    elevation-2
+                    ms-2
+                    text-shadow
+                    dropdown-toggle
+                  "
+                  title="Sort the order of Vaults"
+                  id="sort"
+                  data-bs-toggle="dropdown"
+                >
+                  Sort
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortVaults('oldest')"
+                      >Oldest</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortVaults('mostRecent')"
+                      >Most Recent</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortVaults('aToZ')"
+                      >A-Z</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortVaults('zToA')"
+                      >Z-A</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -106,12 +153,66 @@
               <div class="card-titles text-shadow text-light">
                 <b class="text-info">Keeps</b> created by {{ account.name }}!
               </div>
-              <button
-                class="btn btn-secondary elevation-2 ms-2 text-shadow"
-                title="Select from Vaults"
-              >
-                Select
-              </button>
+              <div>
+                <button
+                  class="btn btn-success elevation-2 text-shadow"
+                  title="Create A Keep"
+                  @click="CreateKeep()"
+                  v-if="user.id == account.id"
+                >
+                  +
+                </button>
+                <button
+                  class="btn btn-secondary elevation-2 ms-2 text-shadow"
+                  title="Select from Vaults"
+                >
+                  Select
+                </button>
+                <button
+                  class="
+                    btn btn-info
+                    elevation-2
+                    ms-2
+                    text-shadow
+                    dropdown-toggle
+                  "
+                  title="Sort the order of Vaults"
+                  id="sort"
+                  data-bs-toggle="dropdown"
+                >
+                  Sort
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortKeeps('oldest')"
+                      >Oldest</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortKeeps('mostRecent')"
+                      >Most Recent</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortKeeps('aToZ')"
+                      >A-Z</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item dropdown-item-text"
+                      @click="sortKeeps('zToA')"
+                      >Z-A</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="card-body">
@@ -143,6 +244,10 @@ import { useRoute } from "vue-router"
 import { profilesService } from "../services/ProfilesService"
 import { resetService } from "../services/ResetService"
 import { logger } from "../utils/Logger"
+import { vaultsService } from "../services/VaultsService"
+import Pop from "../utils/Pop"
+import { Modal } from "bootstrap"
+import { keepsService } from "../services/KeepsService"
 export default {
   name: 'Account',
   setup() {
@@ -152,11 +257,10 @@ export default {
         AppState.loading = true
         await resetService.ResetEverything()
         await profilesService.getProfileDetails(route.params.accountId)
-        await vaultsService.GetMyVaults()
         AppState.loading = false
       } catch (error) {
-        Pop.toast(error, 'error')
-        logger.error(error)
+        Pop.toast(error.message, 'error')
+        logger.error(error.message)
       }
     })
     return {
@@ -166,6 +270,18 @@ export default {
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
       loading: computed(() => AppState.loading),
+      sortVaults(type) {
+        vaultsService.sort(type)
+      },
+      sortKeeps(type) {
+        keepsService.sort(type)
+      },
+      CreateVault() {
+        Modal.getOrCreateInstance(document.getElementById("CreateVault")).toggle();
+      },
+      CreateKeep() {
+        Modal.getOrCreateInstance(document.getElementById("CreateKeep")).toggle();
+      },
       ScrollToVaults() {
         const el = document.getElementById("vaults")
         el.scrollIntoView({ behavior: "smooth" });

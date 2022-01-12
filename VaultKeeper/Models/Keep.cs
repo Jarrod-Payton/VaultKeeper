@@ -1,3 +1,5 @@
+using System;
+
 namespace VaultKeeper.Models
 {
   public class KeepFromVaultKeep : Keep
@@ -15,5 +17,7 @@ namespace VaultKeeper.Models
     public int keeps { get; set; }
     public int shares { get; set; }
     public Profile Creator { get; set; }
+    public DateTime createdAt { get; set; }
+    public DateTime updatedAt { get; set; }
   }
 }

@@ -9,6 +9,8 @@
   </main>
   <footer></footer>
   <KeepModal />
+  <CreateKeepModal />
+  <CreateVaultModal />
 </template>
 
 <script>

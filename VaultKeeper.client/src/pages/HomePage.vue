@@ -16,6 +16,8 @@ import { onMounted } from "@vue/runtime-core"
 import { keepsService } from "../services/KeepsService"
 import { resetService } from "../services/ResetService"
 import { vaultsService } from "../services/VaultsService"
+import Pop from "../utils/Pop"
+import { logger } from "../utils/Logger"
 export default {
   setup() {
     onMounted(async () => {
@@ -23,11 +25,10 @@ export default {
         AppState.loading = true
         await resetService.ResetEverything()
         await keepsService.GetAllKeeps()
-        await vaultsService.GetMyVaults()
         AppState.loading = false
       } catch (error) {
-        Pop.toast(error, 'error')
-        logger.error(error)
+        Pop.toast(error.message, 'error')
+        logger.error(error.message)
       }
     })
     return {
