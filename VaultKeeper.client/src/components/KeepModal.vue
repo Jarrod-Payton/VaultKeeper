@@ -52,9 +52,9 @@
                     </div>
                   </div>
                   <div class="col-12 mt-4">
-                    <div class="description text-shadow">
+                    <p class="description text-shadow">
                       {{ activeKeep.description }}
-                    </div>
+                    </p>
                   </div>
                   <div class="col-12 bottom">
                     <div class="d-flex align-items-bottom">
@@ -162,6 +162,7 @@ export default {
 }
 .description {
   font-size: 2vh;
+  word-wrap: break-word;
 }
 .img {
   max-height: 800px;
