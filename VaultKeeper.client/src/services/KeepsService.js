@@ -1,5 +1,6 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 class KeepsService {
   async GetAllKeeps() {
@@ -17,6 +18,14 @@ class KeepsService {
   async createKeep(newKeep) {
     const res = await api.post(`api/keeps`, newKeep)
     AppState.keeps.unshift(res.data)
+  }
+  async deleteKeep() {
+    await api.delete(`api/keeps/${AppState.activeKeep.id}`)
+    AppState.keeps = AppState.keeps.filter(k =>
+      k.id != AppState.activeKeep.id
+    )
+    AppState.activeKeep = {}
+    Pop.toast('Deleted', 'success')
   }
   sort(type) {
     let sorted = []

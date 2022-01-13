@@ -50,7 +50,6 @@ export default {
       router,
       VaultPage() {
         router.push({ name: 'Vault', params: { vaultId: props.vault.id } })
-        Pop.toast(`Welcome to the ${props.vault.name} vault!`)
       }
     }
   },

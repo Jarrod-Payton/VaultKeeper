@@ -22,8 +22,25 @@
       </div>
     </div>
     <div class="row" v-if="keeps.length > 0">
-      <div class="col-md-4 col-sm-6 col-lg-3" v-for="k in keeps" :key="k.id">
-        <Keep :keep="k" />
+      <div
+        class="col-md-4 col-sm-6 col-lg-3 m-4"
+        v-for="k in keeps"
+        :key="k.id"
+      >
+        <div class="row">
+          <div class="col-12">
+            <Keep :keep="k" />
+          </div>
+          <div class="col-12" v-if="vault.creatorId == account.id">
+            <button
+              class="btn w-100 btn-danger mt-1"
+              title="Remove keep from vault"
+              @click="removeKeepFromVault(k.vaultKeepId, k.id)"
+            >
+              Remove from Vault
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row" v-else>
@@ -44,6 +61,7 @@ import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { resetService } from "../services/ResetService"
+import { vaultKeepsService } from "../services/VaultKeepsService"
 export default {
   setup() {
     const route = useRoute()
@@ -61,7 +79,7 @@ export default {
         }
         AppState.loading = false
       } catch (error) {
-        Pop.toast(error.message, 'error')
+        Pop.toast('You are not authorized good sir', 'error')
         logger.error(error.message)
         router.push({ name: 'Home' })
       }
@@ -72,6 +90,11 @@ export default {
       },
       RouteHome() {
         router.push({ name: 'Home' })
+      },
+      async removeKeepFromVault(vaultKeepId, keepId) {
+        if (await Pop.confirm("are you sure you want to remove this? It won't delete the keep but it might be hard to find again")) {
+          await vaultKeepsService.removeKeepFromVault(vaultKeepId, keepId)
+        }
       },
       async deleteVault() {
         if (await Pop.confirm('Are you sure you would like to delete this amazing vault?')) {

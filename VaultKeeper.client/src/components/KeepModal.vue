@@ -10,7 +10,7 @@
                   <div class="col-12">
                     <img
                       :src="activeKeep.img"
-                      class="w-100 img object-fit-cover elevation-2"
+                      class="w-100 img elevation-2"
                       alt="Image of the Keep"
                       v-if="activeKeep.img != `{{editKeepImg}}`"
                     />
@@ -56,24 +56,50 @@
                       {{ activeKeep.description }}
                     </div>
                   </div>
-                  <div class="col-12 flex-grow">
-                    <button class="btn btn-success elevation-2">
-                      Add to Vault
-                    </button>
-                    <button class="btn btn-danger ms-2 elevation-2 text-light">
-                      <i class="mdi mdi-trash-can" />
-                    </button>
-                    <button class="selectable bg-dark p-1 rounded elevation-2">
-                      <img
-                        :src="activekeep.creator?.picture"
-                        alt="user photo"
-                        height="40"
-                        class="rounded"
-                      />
-                      <span class="mx-3 text-success lighten-30 text-shadow">{{
-                        activeKeep.creator?.name
-                      }}</span>
-                    </button>
+                  <div class="col-12 bottom">
+                    <div class="d-flex align-items-bottom">
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-success elevation-2 dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                        >
+                          Add to Vault
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li
+                            class="dropdown-item action"
+                            v-for="v in myVaults"
+                            :key="v.id"
+                            @click="addToVault(v.id)"
+                          >
+                            {{ v.name }}
+                          </li>
+                        </ul>
+                      </div>
+                      <button
+                        class="btn btn-danger ms-2 elevation-2 text-light"
+                        v-if="activeKeep.creatorId == account.id"
+                        @click="deleteKeep()"
+                      >
+                        <i class="mdi mdi-trash-can" />
+                      </button>
+                      <button
+                        class="
+                          btn
+                          selectable
+                          bg-dark
+                          p-1
+                          elevation-2
+                          rounded
+                          ms-2
+                        "
+                        @click="RouteToCreatorPage()"
+                      >
+                        <span class="mx-3 text-shadow">
+                          {{ activeKeep.creator?.name }}</span
+                        >
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -90,16 +116,32 @@ import { AppState } from "../AppState"
 import { useRouter } from "vue-router"
 import { Modal } from "bootstrap"
 import { profilesService } from "../services/ProfilesService"
+import { keepsService } from "../services/KeepsService"
+import { vaultKeepsService } from "../services/VaultKeepsService"
+import Pop from "../utils/Pop"
 export default {
   setup() {
     const router = useRouter()
     return {
       router,
+      async addToVault(vaultId) {
+        await vaultKeepsService.createVaultKeep(vaultId)
+      },
+      async deleteKeep() {
+        Modal.getOrCreateInstance(document.getElementById("KeepModal")).hide();
+        if (await Pop.confirm('Are You sure you want to delete this keep?')) {
+          await keepsService.deleteKeep()
+        } else {
+          Modal.getOrCreateInstance(document.getElementById("KeepModal")).toggle();
+        }
+      },
       async RouteToCreatorPage() {
         Modal.getOrCreateInstance(document.getElementById("KeepModal")).hide();
         router.push({ name: 'Account', params: { accountId: AppState.activeKeep.creator?.id } })
       },
-      activeKeep: computed(() => AppState.activeKeep)
+      account: computed(() => AppState.account),
+      activeKeep: computed(() => AppState.activeKeep),
+      myVaults: computed(() => AppState.myVaults),
     }
   },
 }
@@ -124,5 +166,6 @@ export default {
 .img {
   max-height: 800px;
   min-height: 500px;
+  object-fit: cover;
 }
 </style>
