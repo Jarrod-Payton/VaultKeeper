@@ -45,6 +45,14 @@ export default {
 }
 </script>
 <style scoped>
+img {
+  max-width: 100%;
+  display: block;
+}
+figure > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
 .creator {
   position: absolute;
   padding-top: 5px;

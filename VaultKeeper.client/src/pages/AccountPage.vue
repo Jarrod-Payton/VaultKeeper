@@ -212,8 +212,12 @@
         </div>
       </div>
       <div class="row m-0">
-        <div class="col-md-4 col-sm-6 col-lg-3" v-for="k in keeps" :key="k.id">
-          <Keep :keep="k" />
+        <div class="col-12">
+          <div class="container">
+            <figure v-for="k in keeps" :key="k.id">
+              <Keep :keep="k" />
+            </figure>
+          </div>
         </div>
       </div>
     </div>
@@ -280,6 +284,21 @@ export default {
 </script>
 
 <style scoped>
+figure > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
+figure {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+.container {
+  column-count: 4;
+  column-gap: 10px;
+}
 .plus {
   font-size: 4vh;
 }

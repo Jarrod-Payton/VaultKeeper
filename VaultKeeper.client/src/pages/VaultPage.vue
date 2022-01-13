@@ -32,7 +32,11 @@
       >
         <div class="row">
           <div class="col-12">
-            <Keep :keep="k" />
+            <div class="container">
+              <figure>
+                <Keep :keep="k" />
+              </figure>
+            </div>
           </div>
           <div class="col-12" v-if="vault.creatorId == account.id">
             <button
@@ -115,6 +119,21 @@ export default {
 }
 </script>
 <style scoped>
+figure > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
+figure {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+.container {
+  column-count: 4;
+  column-gap: 10px;
+}
 .title {
   font-size: 5vh;
   word-wrap: break-word;
