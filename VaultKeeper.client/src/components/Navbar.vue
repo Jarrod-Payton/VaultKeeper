@@ -1,6 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link
+      class="navbar-brand d-flex"
+      title="Route to the Home Page"
+      :to="{ name: 'Home' }"
+    >
       <div class="d-flex align-items-center">
         <img
           alt="logo"
@@ -43,9 +47,9 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30 text-shadow">{{
-            user.name
-          }}</span>
+          <span class="mx-3 text-success lighten-30 text-shadow">
+            {{ user.name }}
+          </span>
         </div>
         <div
           class="dropdown-menu p-0 list-group w-100"

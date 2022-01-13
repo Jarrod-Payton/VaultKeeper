@@ -5,7 +5,7 @@
         <form @submit.prevent="CreateVault()">
           <div class="modal-header">
             <div class="modal-title">
-              <div class="input text-shadow">Create Vault</div>
+              <div class="input">Create Vault</div>
             </div>
             <button
               type="button"
@@ -18,27 +18,27 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12">
-                  <div class="input text-center text-shadow">Vault Name</div>
+                  <div class="input text-center">Vault Name</div>
                   <input
                     type="text"
                     required
-                    placeholder="Keep Name ..."
+                    placeholder="Vault Name ..."
                     class="form-control"
+                    max="10"
+                    min="1"
                     v-model="info.name"
                   />
-                  <div class="input text-center text-shadow">
-                    Vault Description
-                  </div>
+                  <div class="input text-center">Vault Description</div>
                   <input
                     type="text"
                     required
                     placeholder="Keep Description ..."
                     class="form-control"
                     v-model="info.description"
+                    max="600"
+                    min="1"
                   />
-                  <div class="input text-center text-shadow">
-                    Private Vault?
-                  </div>
+                  <div class="input text-center">Private Vault?</div>
                   <div
                     class="
                       d-flex
@@ -48,7 +48,7 @@
                     "
                   >
                     <div>
-                      <div class="input text-shadow">Yes</div>
+                      <div class="input">Yes</div>
                       <input
                         type="radio"
                         required
@@ -59,7 +59,7 @@
                       />
                     </div>
                     <div>
-                      <div class="input text-shadow">No</div>
+                      <div class="input">No</div>
                       <input
                         type="radio"
                         required
@@ -77,6 +77,7 @@
           <div class="modal-footer">
             <button
               class="btn btn-success"
+              title="Create Vault"
               type="submit"
               :disabled="(submitting = false)"
             >

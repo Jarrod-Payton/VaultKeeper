@@ -1,5 +1,5 @@
 <template>
-  <div class="image action m-2" @click="KeepModal">
+  <div class="image action m-2" title="See Details" @click="KeepModal">
     <img :src="keep.img" alt="Keep Photo" class="actual-photo rounded" />
     <div class="text">
       <div class="row">

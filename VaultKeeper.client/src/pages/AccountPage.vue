@@ -14,10 +14,18 @@
               <div class="name">
                 {{ account.name }}
               </div>
-              <div class="stats action" @click="ScrollToKeeps()">
+              <div
+                class="stats action"
+                title="Scroll to Keeps"
+                @click="ScrollToKeeps()"
+              >
                 Keeps: {{ keeps.length }}
               </div>
-              <div class="stats action" @click="ScrollToVaults()">
+              <div
+                class="stats action"
+                title="Scroll to Vaults"
+                @click="ScrollToVaults()"
+              >
                 Vaults: {{ vaults.length }}
               </div>
             </div>
@@ -83,6 +91,20 @@
                   class="dropdown-item dropdown-item-text"
                   @click="sortVaults('zToA')"
                   >Z-A</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item dropdown-item-text"
+                  @click="sortVaults('private')"
+                  >Private</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item dropdown-item-text"
+                  @click="sortVaults('public')"
+                  >Public</a
                 >
               </li>
             </ul>
@@ -155,6 +177,34 @@
                   class="dropdown-item dropdown-item-text"
                   @click="sortKeeps('zToA')"
                   >Z-A</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item dropdown-item-text"
+                  @click="sortKeeps('mostViews')"
+                  >Most Views</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item dropdown-item-text"
+                  @click="sortKeeps('leastViews')"
+                  >Least Views</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item dropdown-item-text"
+                  @click="sortKeeps('mostKeeps')"
+                  >Most Keeps</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item dropdown-item-text"
+                  @click="sortKeeps('leastKeeps')"
+                  >Least Keeps</a
                 >
               </li>
             </ul>

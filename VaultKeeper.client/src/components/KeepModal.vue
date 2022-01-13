@@ -62,6 +62,7 @@
                         <button
                           class="btn btn-success elevation-2 dropdown-toggle"
                           data-bs-toggle="dropdown"
+                          title="add keep to a already created vault"
                         >
                           Add to Vault
                         </button>
@@ -71,6 +72,7 @@
                             v-for="v in myVaults"
                             :key="v.id"
                             @click="addToVault(v.id)"
+                            title="Add keep to vault"
                           >
                             {{ v.name }}
                           </li>
@@ -80,6 +82,7 @@
                         class="btn btn-danger ms-2 elevation-2 text-light"
                         v-if="activeKeep.creatorId == account.id"
                         @click="deleteKeep()"
+                        title="Delete this keep"
                       >
                         <i class="mdi mdi-trash-can" />
                       </button>
@@ -93,6 +96,7 @@
                           rounded
                           ms-2
                         "
+                        title="View the creator's page!"
                         @click="RouteToCreatorPage()"
                       >
                         <span class="mx-3 text-shadow">

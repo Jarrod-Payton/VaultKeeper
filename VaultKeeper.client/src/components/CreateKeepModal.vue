@@ -5,7 +5,7 @@
         <form @submit.prevent="Create()">
           <div class="modal-header">
             <div class="modal-title">
-              <div class="input text-shadow">Create Keep</div>
+              <div class="input">Create Keep</div>
             </div>
             <button
               type="button"
@@ -18,25 +18,27 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12">
-                  <div class="input text-center text-shadow">Keep Name</div>
+                  <div class="input text-center">Keep Name</div>
                   <input
                     type="text"
                     required
                     placeholder="Keep Name ..."
                     class="form-control"
                     v-model="info.name"
+                    max="60"
+                    min="1"
                   />
-                  <div class="input text-center text-shadow">
-                    Keep Description
-                  </div>
+                  <div class="input text-center">Keep Description</div>
                   <input
                     type="text"
                     required
                     placeholder="Keep Description ..."
                     class="form-control"
                     v-model="info.description"
+                    max="600"
+                    min="1"
                   />
-                  <div class="input text-center text-shadow">Keep Image</div>
+                  <div class="input text-center">Keep Image</div>
                   <input
                     type="text"
                     required
@@ -51,6 +53,7 @@
           <div class="modal-footer">
             <button
               class="btn btn-success"
+              title="Create Keep"
               type="submit"
               :disabled="(submitting = false)"
             >

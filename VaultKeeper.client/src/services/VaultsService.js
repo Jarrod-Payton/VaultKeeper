@@ -82,6 +82,13 @@ class VaultsService {
         return 0
       })
     }
+    else if (type == 'public') {
+      sorted = AppState.vaults.sort(function (a, b) {
+        if (a.isPrivate == false) { return -1 }
+        if (a.isPrivate == true) { return 1 }
+        return 0
+      })
+    }
     AppState.vaults = sorted
   }
 }

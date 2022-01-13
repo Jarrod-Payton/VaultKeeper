@@ -7,6 +7,9 @@
             <div class="title">
               {{ vault.name }}
             </div>
+            <div class="description">
+              {{ vault.description }}
+            </div>
             <div class="stats">Keeps: {{ keeps.length }}</div>
             <div class="privacy" v-if="vault.creatorId == account.id">
               <div class="stats" v-if="vault.isPrivate">Private</div>
@@ -114,6 +117,10 @@ export default {
 <style scoped>
 .title {
   font-size: 5vh;
+  word-wrap: break-word;
+}
+.description {
+  font-size: 3vh;
 }
 .stats {
   font-size: 3.5vh;
@@ -121,6 +128,12 @@ export default {
 .info {
   padding-top: 20px;
   padding-left: 40px;
+  word-wrap: break-word;
+}
+.delete {
+  position: absolute;
+  right: 10px;
+  top: 100px;
 }
 .no-keeps {
   margin-top: 30vh;

@@ -1,5 +1,9 @@
 <template>
-  <div class="card elevation-2 bg-dark m-2 action" @click="VaultPage()">
+  <div
+    class="card elevation-2 bg-dark m-2 action"
+    title="Go To This Vault's Page"
+    @click="VaultPage()"
+  >
     <div class="card-body p-3">
       <div class="col-12">
         <div class="vault-title text-shadow text-center">
