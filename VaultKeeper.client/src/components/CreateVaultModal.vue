@@ -24,8 +24,8 @@
                     required
                     placeholder="Vault Name ..."
                     class="form-control"
-                    max="10"
-                    min="1"
+                    maxlength="10"
+                    minlength="1"
                     v-model="info.name"
                   />
                   <div class="input text-center">Vault Description</div>
@@ -35,8 +35,8 @@
                     placeholder="Keep Description ..."
                     class="form-control"
                     v-model="info.description"
-                    max="600"
-                    min="1"
+                    maxlength="600"
+                    minlength="1"
                   />
                   <div class="input text-center">Private Vault?</div>
                   <div

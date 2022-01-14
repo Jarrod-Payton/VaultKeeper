@@ -25,8 +25,8 @@
                     placeholder="Keep Name ..."
                     class="form-control"
                     v-model="info.name"
-                    max="60"
-                    min="1"
+                    maxlength="60"
+                    minlength="1"
                   />
                   <div class="input text-center">Keep Description</div>
                   <input
@@ -35,8 +35,8 @@
                     placeholder="Keep Description ..."
                     class="form-control"
                     v-model="info.description"
-                    max="600"
-                    min="1"
+                    maxlength="600"
+                    minlength="1"
                   />
                   <div class="input text-center">Keep Image</div>
                   <input
