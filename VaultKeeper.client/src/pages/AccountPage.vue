@@ -258,11 +258,11 @@ export default {
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
       loading: computed(() => AppState.loading),
-      sortVaults(type) {
-        vaultsService.sort(type)
+      async sortVaults(type) {
+        await vaultsService.sort(type)
       },
-      sortKeeps(type) {
-        keepsService.sort(type)
+      async sortKeeps(type) {
+        await keepsService.sort(type)
       },
       CreateVault() {
         Modal.getOrCreateInstance(document.getElementById("CreateVault")).toggle();
@@ -271,12 +271,10 @@ export default {
         Modal.getOrCreateInstance(document.getElementById("CreateKeep")).toggle();
       },
       ScrollToVaults() {
-        const el = document.getElementById("vaults")
-        el.scrollIntoView({ behavior: "smooth" });
+        document.getElementById("vaults").scrollIntoView({ behavior: "smooth" });
       },
       ScrollToKeeps() {
-        const el = document.getElementById("keeps")
-        el.scrollIntoView({ behavior: "smooth" });
+        document.getElementById("keeps").scrollIntoView({ behavior: "smooth" });
       }
     }
   }

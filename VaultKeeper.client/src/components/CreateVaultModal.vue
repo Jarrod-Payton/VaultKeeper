@@ -4,9 +4,7 @@
       <div class="modal-content bg-secondary">
         <form @submit.prevent="CreateVault()">
           <div class="modal-header">
-            <div class="modal-title">
-              <div class="input">Create Vault</div>
-            </div>
+            <div class="modal-title">Create Vault</div>
             <button
               type="button"
               class="btn-close"
