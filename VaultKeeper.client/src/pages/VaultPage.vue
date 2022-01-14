@@ -115,6 +115,21 @@ export default {
 }
 </script>
 <style scoped>
+.container-masonry {
+  column-count: 4;
+  column-gap: 10px;
+}
+figure {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+figure > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
 .title {
   font-size: 5vh;
   word-wrap: break-word;

@@ -1,5 +1,5 @@
 <template>
-  <div class="image action m-2" title="See Details" @click="KeepModal">
+  <div class="image action" title="See Details" @click="KeepModal">
     <img :src="keep.img" alt="Keep Photo" class="actual-photo rounded" />
     <div class="text">
       <div class="row">
@@ -64,7 +64,7 @@ figure > img {
 }
 .actual-photo {
   width: 100%;
-  max-height: 70vh;
+  max-height: 100vh;
   object-fit: cover;
 }
 .text {
@@ -78,7 +78,7 @@ figure > img {
 }
 .image {
   position: relative;
-  max-width: 800px;
+  max-width: 500px;
   margin: 0 auto;
 }
 .title {

@@ -213,7 +213,7 @@
       </div>
       <div class="row m-0">
         <div class="col-12">
-          <div class="container">
+          <div class="container-masonry">
             <figure v-for="k in keeps" :key="k.id">
               <Keep :keep="k" />
             </figure>
@@ -295,7 +295,7 @@ figure {
   margin-bottom: 10px;
   break-inside: avoid;
 }
-.container {
+.container-masonry {
   column-count: 4;
   column-gap: 10px;
 }
