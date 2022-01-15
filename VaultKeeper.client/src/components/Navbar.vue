@@ -66,31 +66,34 @@
 </template>
 
 <script>
-import { AuthService } from '../services/AuthService'
-import { AppState } from '../AppState'
-import { computed } from 'vue'
-import { Modal, Offcanvas } from "bootstrap"
+import { AuthService } from "../services/AuthService";
+import { AppState } from "../AppState";
+import { computed } from "vue";
+import { Modal, Offcanvas } from "bootstrap";
 export default {
   setup() {
-
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       editProfile() {
-        Offcanvas.getOrCreateInstance(document.getElementById("EditProfileOffCanvas")).toggle();
+        Offcanvas.getOrCreateInstance(
+          document.getElementById("EditProfileOffCanvas")
+        ).toggle();
       },
       CreateKeep() {
-        Modal.getOrCreateInstance(document.getElementById("CreateKeep")).toggle();
+        Modal.getOrCreateInstance(
+          document.getElementById("CreateKeep")
+        ).toggle();
       },
       async login() {
-        AuthService.loginWithPopup()
+        AuthService.loginWithPopup();
       },
       async logout() {
-        AuthService.logout({ returnTo: window.location.origin })
-      }
-    }
-  }
-}
+        AuthService.logout({ returnTo: window.location.origin });
+      },
+    };
+  },
+};
 </script>
 
 <style scoped>
