@@ -63,6 +63,7 @@
                       class="form-control text-center name"
                       v-model="accountDetails.name"
                       minlength="1"
+                      maxlength="30"
                     />
                     <div class="text-center mt-4 details-title">
                       Profile Picture:
