@@ -11,6 +11,7 @@
   <KeepModal />
   <CreateKeepModal />
   <CreateVaultModal />
+  <Edit-Profile-Offcanvas />
 </template>
 
 <script>

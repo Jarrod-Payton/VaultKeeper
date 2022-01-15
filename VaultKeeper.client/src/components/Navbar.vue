@@ -34,46 +34,25 @@
       >
         Login
       </button>
-      <div class="dropdown my-2 my-lg-0" v-else>
+      <div class="dropdown my-2 my-lg-0 dropstart" v-else>
         <div
-          class="dropdown-toggle selectable bg-dark p-1 rounded elevation-2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          id="authDropdown"
+          class="selectable bg-dark p-1 rounded elevation-2"
+          @click="editProfile"
         >
           <img
-            :src="user.picture"
+            :src="account.picture"
             alt="user photo"
             height="40"
-            class="rounded"
+            class="rounded profile-pic"
           />
           <span class="mx-3 text-success lighten-30 text-shadow">
-            {{ user.name }}
+            {{ account.name }}
           </span>
-        </div>
-        <div
-          class="dropdown-menu p-0 list-group w-100"
-          aria-labelledby="authDropdown"
-        >
-          <router-link
-            :to="{ name: 'Account', params: { accountId: account.id } }"
-          >
-            <div class="list-group-item list-group-item-action hoverable">
-              Manage Account
-            </div>
-          </router-link>
-          <div
-            class="list-group-item list-group-item-action hoverable text-info"
-            @click="logout"
-          >
-            <i class="mdi mdi-logout"></i>
-            Logout
-          </div>
         </div>
       </div>
     </span>
     <button
-      class="navbar-toggler dropstart"
+      class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -89,16 +68,17 @@
 <script>
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
-import { computed, watchEffect } from 'vue'
-import { useRoute, useRouter } from "vue-router"
-import { logger } from "../utils/Logger"
-import { Modal } from "bootstrap"
+import { computed } from 'vue'
+import { Modal, Offcanvas } from "bootstrap"
 export default {
   setup() {
 
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
+      editProfile() {
+        Offcanvas.getOrCreateInstance(document.getElementById("EditProfileOffCanvas")).toggle();
+      },
       CreateKeep() {
         Modal.getOrCreateInstance(document.getElementById("CreateKeep")).toggle();
       },
@@ -114,11 +94,15 @@ export default {
 </script>
 
 <style scoped>
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+}
 .dropdown-menu {
   user-select: none;
   display: block;
   transform: scale(0);
-  transition: all 0.15s linear;
 }
 .dropdown-menu.show {
   transform: scale(1);

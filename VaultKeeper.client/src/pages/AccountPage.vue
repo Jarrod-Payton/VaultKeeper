@@ -9,6 +9,7 @@
               :src="account.picture"
               class="elevation-2 me-3 profile-pic"
               alt="Profile Picture"
+              @click="editProfile()"
             />
             <div class="info">
               <div class="name">
@@ -234,7 +235,7 @@ import { resetService } from "../services/ResetService"
 import { logger } from "../utils/Logger"
 import { vaultsService } from "../services/VaultsService"
 import Pop from "../utils/Pop"
-import { Modal } from "bootstrap"
+import { Modal, Offcanvas } from "bootstrap"
 import { keepsService } from "../services/KeepsService"
 export default {
   name: 'Account',
@@ -258,6 +259,9 @@ export default {
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
       loading: computed(() => AppState.loading),
+      editProfile() {
+        Offcanvas.getOrCreateInstance(document.getElementById("EditProfileOffCanvas")).toggle();
+      },
       async sortVaults(type) {
         await vaultsService.sort(type)
       },
