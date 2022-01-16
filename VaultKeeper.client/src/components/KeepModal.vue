@@ -100,7 +100,7 @@
                         @click="RouteToCreatorPage()"
                       >
                         <span class="mx-3 text-shadow">
-                          {{ activeKeep.creator?.name }}</span
+                          Creator: {{ activeKeep.creator?.name }}</span
                         >
                       </button>
                     </div>
