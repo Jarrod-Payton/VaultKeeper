@@ -111,7 +111,6 @@ import { watchEffect } from "@vue/runtime-core"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { accountService } from "../services/AccountService"
-import { Offcanvas } from "bootstrap"
 export default {
   setup() {
     let accountDetails = ref({})
