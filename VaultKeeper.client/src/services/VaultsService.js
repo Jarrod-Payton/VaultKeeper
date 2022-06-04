@@ -41,6 +41,13 @@ class VaultsService {
     AppState.vaults.unshift(res.data)
     AppState.myVaults.unshift(res.data)
   }
+  async deleteVault(vaultId) {
+    logger.log('HELWODO', vaultId)
+    await api.delete(`api/vaults/${vaultId}`)
+  }
+
+
+
   sort(type) {
     let sorted = []
     if (type == 'mostRecent') {
@@ -72,6 +79,13 @@ class VaultsService {
       sorted = AppState.vaults.sort(function (a, b) {
         if (a.isPrivate == true) { return -1 }
         if (a.isPrivate == false) { return 1 }
+        return 0
+      })
+    }
+    else if (type == 'public') {
+      sorted = AppState.vaults.sort(function (a, b) {
+        if (a.isPrivate == false) { return -1 }
+        if (a.isPrivate == true) { return 1 }
         return 0
       })
     }

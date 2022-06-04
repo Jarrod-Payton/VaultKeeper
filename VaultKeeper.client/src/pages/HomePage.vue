@@ -1,8 +1,12 @@
 <template>
   <div class="Home-Page" v-if="!loading">
-    <div class="row m-0">
-      <div class="col-md-4 col-sm-6 col-lg-3" v-for="k in keeps" :key="k.id">
-        <Keep :keep="k" />
+    <div class="row m-0 mt-1">
+      <div class="col-12">
+        <div class="container-masonry">
+          <figure v-for="k in keeps" :key="k.id">
+            <Keep :keep="k" />
+          </figure>
+        </div>
       </div>
     </div>
   </div>
@@ -20,6 +24,7 @@ import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 export default {
   setup() {
+    document.title = "Keeper | Home"
     onMounted(async () => {
       try {
         AppState.loading = true
@@ -40,6 +45,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+figure > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
+figure {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 100%;
+  margin-bottom: 10px;
+  break-inside: avoid;
+  width: 100%;
+}
+.container-masonry {
+  column-count: 5;
+  column-gap: 10px;
+}
 .home {
   display: grid;
   height: 80vh;

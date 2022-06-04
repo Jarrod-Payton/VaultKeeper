@@ -1,21 +1,18 @@
 <template>
-  <div class="card mt-2 elevation-2 bg-dark action" @click="KeepModal">
-    <img
-      :src="keep.img"
-      alt="Keep Photo"
-      onerror="this.onerror=null; this.src='../assets/img/KnightsIcon.jpg'"
-      class="pt-3 px-3 rounded"
-    />
-    <div class="card-body">
+  <div class="image action" title="See Details" @click="KeepModal">
+    <img :src="keep.img" alt="Keep Photo" class="actual-photo rounded" />
+    <div class="text">
       <div class="row">
         <div class="col-12">
           <div class="d-flex justify-content-center align-items-center pb-2">
             <div class="title">{{ keep.name }}</div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="d-flex justify-content-between align-items-center p-1">
-            <div class="description">{{ keep.description }}</div>
+            <div class="creator">
+              <img
+                :src="keep.creator.picture"
+                class="creator-pic"
+                alt="Profile Pic"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -28,6 +25,7 @@ import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { keepsService } from "../services/KeepsService"
+import { vaultsService } from "../services/VaultsService"
 export default {
   props: { keep: { type: Object, required: true } },
   setup(props) {
@@ -35,6 +33,7 @@ export default {
       KeepModal() {
         try {
           keepsService.setActive(props.keep)
+          vaultsService.GetMyVaults()
           Modal.getOrCreateInstance(document.getElementById("KeepModal")).toggle();
         } catch (error) {
           logger.error(error)
@@ -46,10 +45,46 @@ export default {
 }
 </script>
 <style scoped>
+img {
+  max-width: 100%;
+  display: block;
+}
+figure > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
+.creator {
+  position: absolute;
+  padding-top: 5px;
+  right: 40px;
+}
+.creator-pic {
+  height: 30px;
+  border-radius: 50px;
+}
+.actual-photo {
+  width: 100%;
+  max-height: 100vh;
+  object-fit: cover;
+}
+.text {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+.image {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
 .title {
-  font-size: 2vh;
+  font-size: 2.4vh;
 }
 .description {
-  font-size: 1.3vh;
+  font-size: 2vh;
 }
 </style>

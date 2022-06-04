@@ -28,10 +28,6 @@ namespace VaultKeeper.Services
     {
       GetProfileById(ProfileId);
       List<Keep> found = _pr.GetKeepsByCreatorId(ProfileId);
-      if (found.Count <= 0)
-      {
-        throw new Exception("This user doesn't have any Keeps");
-      }
       return found;
     }
 
@@ -50,10 +46,6 @@ namespace VaultKeeper.Services
       else
       {
         found = _pr.GetPublicVaultsByCreatorId(ProfileId);
-      }
-      if (found.Count <= 0)
-      {
-        throw new Exception("There are no vaults for this user");
       }
       return found;
     }

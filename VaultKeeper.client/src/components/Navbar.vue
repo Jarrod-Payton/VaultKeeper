@@ -1,5 +1,23 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+    <router-link
+      class="navbar-brand d-flex"
+      title="Route to the Home Page"
+      :to="{ name: 'Home' }"
+    >
+      <div class="d-flex align-items-center">
+        <img
+          alt="logo"
+          src="../assets/img/KnightsIcon.jpg"
+          height="40"
+          class="rounded elevation-2"
+        />
+        <span class="mx-3 text-shadow lighten-25 text-uppercase"
+          >Vault Keeper</span
+        >
+      </div>
+    </router-link>
+    <div class="collapse navbar-collapse" id="navbarText"></div>
     <span class="navbar-text pe-3">
       <button
         class="
@@ -16,43 +34,25 @@
       >
         Login
       </button>
-      <div class="dropdown my-2 my-lg-0" v-else>
+      <div class="dropdown my-2 my-lg-0 dropstart" v-else>
         <div
-          class="dropdown-toggle selectable"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          id="authDropdown"
+          class="selectable bg-dark p-1 rounded elevation-2"
+          @click="editProfile"
         >
           <img
-            :src="user.picture"
+            :src="account.picture"
             alt="user photo"
             height="40"
-            class="rounded elevation-2"
+            class="rounded profile-pic"
           />
-        </div>
-        <div
-          class="dropdown-menu p-0 list-group w-100"
-          aria-labelledby="authDropdown"
-        >
-          <router-link
-            :to="{ name: 'Account', params: { accountId: account.id } }"
-          >
-            <div class="list-group-item list-group-item-action hoverable">
-              Manage Account
-            </div>
-          </router-link>
-          <div
-            class="list-group-item list-group-item-action hoverable text-info"
-            @click="logout"
-          >
-            <i class="mdi mdi-logout"></i>
-            Logout
-          </div>
+          <span class="mx-3 text-success lighten-30 text-shadow">
+            {{ account.name }}
+          </span>
         </div>
       </div>
     </span>
     <button
-      class="navbar-toggler dropstart"
+      class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -62,106 +62,50 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <div
-            class="
-              btn
-              text-dark text-shadow
-              elevation-2
-              btn-success
-              lighten-30
-              selectable
-              text-uppercase
-              me-2
-            "
-            @click="CreateKeep()"
-          >
-            Create a Keep
-          </div>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'Home' }"
-            class="
-              btn
-              text-dark text-shadow
-              lighten-30
-              selectable
-              text-uppercase
-              me-2
-            "
-          >
-            Home
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="
-              btn
-              text-dark text-shadow
-              lighten-30
-              selectable
-              text-uppercase
-              me-2
-            "
-          >
-            About
-          </router-link>
-        </li>
-      </ul>
-    </div>
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/KnightsIcon.jpg"
-          height="40"
-          class="rounded elevation-2"
-        />
-        <span class="mx-3 text-dark text-shadow lighten-25 text-uppercase"
-          >Vault Keeper</span
-        >
-      </div>
-    </router-link>
   </nav>
 </template>
 
 <script>
-import { AuthService } from '../services/AuthService'
-import { AppState } from '../AppState'
-import { computed, watchEffect } from 'vue'
-import { useRoute, useRouter } from "vue-router"
-import { logger } from "../utils/Logger"
-import { Modal } from "bootstrap"
+import { AuthService } from "../services/AuthService";
+import { AppState } from "../AppState";
+import { computed } from "vue";
+import { Modal, Offcanvas } from "bootstrap";
 export default {
   setup() {
-
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
+      editProfile() {
+        Offcanvas.getOrCreateInstance(
+          document.getElementById("EditProfileOffCanvas")
+        ).toggle();
+      },
       CreateKeep() {
-        Modal.getOrCreateInstance(document.getElementById("CreateKeep")).toggle();
+        Modal.getOrCreateInstance(
+          document.getElementById("CreateKeep")
+        ).toggle();
       },
       async login() {
-        AuthService.loginWithPopup()
+        AuthService.loginWithPopup();
       },
       async logout() {
-        AuthService.logout({ returnTo: window.location.origin })
-      }
-    }
-  }
-}
+        AuthService.logout({ returnTo: window.location.origin });
+      },
+    };
+  },
+};
 </script>
 
 <style scoped>
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+}
 .dropdown-menu {
   user-select: none;
   display: block;
   transform: scale(0);
-  transition: all 0.15s linear;
 }
 .dropdown-menu.show {
   transform: scale(1);

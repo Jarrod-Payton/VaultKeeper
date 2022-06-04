@@ -1,18 +1,12 @@
 <template>
-  <div class="card elevation-2 bg-dark m-2 action" @click="VaultPage()">
-    <div class="card-title">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="vault-owner text-center text-shadow pt-2 ps-3 text-light">
-          {{ vault.creator.name }}
-        </div>
-        <button class="btn btn-sm btn-outline-danger m-1">
-          <i class="mdi mdi-trash-can" />
-        </button>
-      </div>
-    </div>
-    <div class="card-body pt-0">
+  <div
+    class="card elevation-2 bg-dark m-2 action"
+    title="Go To This Vault's Page"
+    @click="VaultPage()"
+  >
+    <div class="card-body p-3">
       <div class="col-12">
-        <div class="vault-title text-shadow">
+        <div class="vault-title text-shadow text-center">
           <b>
             {{ vault.name }}
           </b>
@@ -60,7 +54,6 @@ export default {
       router,
       VaultPage() {
         router.push({ name: 'Vault', params: { vaultId: props.vault.id } })
-        Pop.toast(`Welcome to the ${props.vault.name} vault!`)
       }
     }
   },

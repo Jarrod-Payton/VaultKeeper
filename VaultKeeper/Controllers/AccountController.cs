@@ -34,6 +34,20 @@ namespace VaultKeeper.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<Account>> EditAccount([FromBody] Account newAccount)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_accountService.Edit(newAccount, userInfo.Email));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     [HttpGet("vaults")]
     [Authorize]
     public async Task<ActionResult<List<Vault>>> GetVaultsByAccount()

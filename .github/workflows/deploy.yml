@@ -4,7 +4,7 @@ name: Deploy to heroku.
 # Run workflow on every push to master branch.
 on:
   push:
-    branches: [main]
+    branches: [Actual-Mock-Catchup]
 
 # Your workflows jobs.
 jobs:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x
+          dotnet-version: 6.0.x
 
       - name: Set Env Vars
         uses: microsoft/variable-substitution@v1

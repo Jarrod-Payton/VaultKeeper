@@ -1,12 +1,10 @@
 <template>
   <div class="modal fade bd-example-modal-sm" id="CreateVault">
     <div class="modal-dialog modal-sm">
-      <div class="modal-content bg-primary">
+      <div class="modal-content bg-secondary">
         <form @submit.prevent="CreateVault()">
           <div class="modal-header">
-            <div class="modal-title">
-              <div class="input text-light text-shadow">Create Vault</div>
-            </div>
+            <div class="modal-title">Create Vault</div>
             <button
               type="button"
               class="btn-close"
@@ -18,39 +16,27 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12">
-                  <div class="input text-center text-light text-shadow">
-                    Vault Name
-                  </div>
+                  <div class="input text-center">Vault Name</div>
                   <input
                     type="text"
                     required
-                    placeholder="Keep Name ..."
+                    placeholder="Vault Name ..."
                     class="form-control"
+                    maxlength="10"
+                    minlength="1"
                     v-model="info.name"
                   />
-                  <div class="input text-center text-light text-shadow">
-                    Vault Description
-                  </div>
+                  <div class="input text-center">Vault Description</div>
                   <input
                     type="text"
                     required
                     placeholder="Keep Description ..."
                     class="form-control"
                     v-model="info.description"
+                    maxlength="600"
+                    minlength="1"
                   />
-                  <div class="input text-center text-light text-shadow">
-                    Vault Image
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Keep Img..."
-                    class="form-control"
-                    v-model="info.img"
-                  />
-                  <div class="input text-center text-light text-shadow">
-                    Private Vault?
-                  </div>
+                  <div class="input text-center">Private Vault?</div>
                   <div
                     class="
                       d-flex
@@ -60,7 +46,7 @@
                     "
                   >
                     <div>
-                      <div class="input text-shadow text-light">Yes</div>
+                      <div class="input">Yes</div>
                       <input
                         type="radio"
                         required
@@ -71,7 +57,7 @@
                       />
                     </div>
                     <div>
-                      <div class="input text-shadow text-light">No</div>
+                      <div class="input">No</div>
                       <input
                         type="radio"
                         required
@@ -88,7 +74,8 @@
           </div>
           <div class="modal-footer">
             <button
-              class="btn btn-outline-success"
+              class="btn btn-success"
+              title="Create Vault"
               type="submit"
               :disabled="(submitting = false)"
             >
@@ -116,6 +103,7 @@ export default {
         submitting.value = true
         await vaultsService.createVault(info.value);
         Modal.getOrCreateInstance(document.getElementById("CreateVault")).toggle();
+        info.value = {}
         submitting.value = false
       }
     }

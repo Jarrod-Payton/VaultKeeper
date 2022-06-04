@@ -1,11 +1,11 @@
 <template>
   <div class="modal fade bd-example-modal-sm" id="CreateKeep">
     <div class="modal-dialog modal-sm">
-      <div class="modal-content bg-primary">
+      <div class="modal-content bg-secondary">
         <form @submit.prevent="Create()">
           <div class="modal-header">
             <div class="modal-title">
-              <div class="input text-light text-shadow">Create Keep</div>
+              <div class="input">Create Keep</div>
             </div>
             <button
               type="button"
@@ -18,29 +18,27 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12">
-                  <div class="input text-center text-light text-shadow">
-                    Keep Name
-                  </div>
+                  <div class="input text-center">Keep Name</div>
                   <input
                     type="text"
                     required
                     placeholder="Keep Name ..."
                     class="form-control"
                     v-model="info.name"
+                    maxlength="60"
+                    minlength="1"
                   />
-                  <div class="input text-center text-light text-shadow">
-                    Keep Description
-                  </div>
+                  <div class="input text-center">Keep Description</div>
                   <input
                     type="text"
                     required
                     placeholder="Keep Description ..."
                     class="form-control"
                     v-model="info.description"
+                    maxlength="600"
+                    minlength="1"
                   />
-                  <div class="input text-center text-light text-shadow">
-                    Keep Image
-                  </div>
+                  <div class="input text-center">Keep Image</div>
                   <input
                     type="text"
                     required
@@ -54,7 +52,8 @@
           </div>
           <div class="modal-footer">
             <button
-              class="btn btn-outline-success"
+              class="btn btn-success"
+              title="Create Keep"
               type="submit"
               :disabled="(submitting = false)"
             >
